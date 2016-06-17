@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - @localhost" uuid="e73e7526-91e8-4871-b271-b065f7bc07bd">
+    <database-info product="MySQL" version="5.5.45" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper"/>
+    <schema name="" catalog="session"/>
+    <table name="control" schema="" catalog="session" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="control_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="register_ibfk_1" table="register" schema="" catalog="session" columns="control_id"/>
+    </table>
+    <table name="group" schema="" catalog="session" type="TABLE">
+      <column name="group" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="department" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="group"/>
+      <exported-key name="student_ibfk_1" table="student" schema="" catalog="session" columns="group"/>
+    </table>
+    <table name="mark" schema="" catalog="session" type="TABLE">
+      <column name="register_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="record_book_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="mark" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="register_id,record_book_id"/>
+      <foreign-key name="mark_ibfk_1" columns="register_id" ref-table="register" ref-schema="" ref-catalog="session" ref-columns="register_number" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="mark_ibfk_2" columns="record_book_id" ref-table="student" ref-schema="" ref-catalog="session" ref-columns="record_book" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="professor" schema="" catalog="session" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="second_name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name=" patronymic" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="register_ibfk_3" table="register" schema="" catalog="session" columns="professor_id"/>
+    </table>
+    <table name="register" schema="" catalog="session" type="TABLE">
+      <column name="register_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="control_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="subject_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="professor_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="document_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="register_number"/>
+      <foreign-key name="register_ibfk_1" columns="control_id" ref-table="control" ref-schema="" ref-catalog="session" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="register_ibfk_2" columns="subject_id" ref-table="subject" ref-schema="" ref-catalog="session" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="register_ibfk_3" columns="professor_id" ref-table="professor" ref-schema="" ref-catalog="session" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="mark_ibfk_1" table="mark" schema="" catalog="session" columns="register_id"/>
+    </table>
+    <table name="student" schema="" catalog="session" type="TABLE">
+      <column name="record_book" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="group" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="first_name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="second_name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="patronymic" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="record_book"/>
+      <foreign-key name="student_ibfk_1" columns="group" ref-table="group" ref-schema="" ref-catalog="session" ref-columns="group" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="mark_ibfk_2" table="mark" schema="" catalog="session" columns="record_book_id"/>
+    </table>
+    <table name="subject" schema="" catalog="session" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="register_ibfk_2" table="register" schema="" catalog="session" columns="subject_id"/>
+    </table>
+    <table name="user" schema="" catalog="session" type="TABLE">
+      <column name="login" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="1000" scale="0" nullable="false" jdbcType="12"/>
+      <column name="salt" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="iterations" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="rights" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+  </data-source>
+</component>
